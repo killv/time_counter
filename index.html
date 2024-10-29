@@ -32,37 +32,44 @@
             const space = '&nbsp;'
 
             counter.addEventListener('click', () => {
-                let startTime = new Date().getTime()
+                const startTime = new Date().getTime()
 
                 function tick() {
                     const currentTime = new Date().getTime()
                     const diff = currentTime - startTime
-
-                    const secondsLeft = parseInt(diff / 1000)
-                    const minutesLeft = parseInt(secondsLeft / 60)
-                    const hoursLeft = parseInt(minutesLeft / 60)
-                    const miliseconds = diff % 1000
-                    const divider = miliseconds < 500 ? space : ':'
-                    const seconds = secondsLeft % 60
-                    const secondsString = seconds < 10 ? space + seconds : seconds
-                    const minutes = minutesLeft % 60
-                    let minutesString = ''
-
-                    if (minutes > 0 && minutes < 10) {
-                        minutesString = space + minutes
-                    } else if (minutes > 10) {
-                        minutesString = minutes
+                    const timeString = prepareTimeString(diff)
+                    
+                    if (counter.innerHTML !== timeString) {
+                        counter.innerHTML = timeString
                     }
-
-                    const timeString = minutesString + divider + secondsString
-
-                    counter.innerHTML = timeString
 
                     requestAnimationFrame(tick)
                 }
 
                 requestAnimationFrame(tick)
             })
+
+            function prepareTimeString(diff) {
+                const secondsLeft = parseInt(diff / 1000)
+                const minutesLeft = parseInt(secondsLeft / 60)
+                const hoursLeft = parseInt(minutesLeft / 60)
+                const miliseconds = diff % 1000
+                const divider = miliseconds < 500 ? space : ':'
+                const seconds = secondsLeft % 60
+                const secondsString = seconds < 10 ? space + seconds : seconds
+                const minutes = minutesLeft % 60
+                let minutesString = ''
+
+                if (minutes > 0 && minutes < 10) {
+                    minutesString = space + minutes
+                } else if (minutes > 10) {
+                    minutesString = minutes
+                }
+
+                const timeString = minutesString + divider + secondsString
+
+                return timeString
+            }
         </script>
     </body>
     <!-- counter % open -a "Brave Browser" index.html -->
