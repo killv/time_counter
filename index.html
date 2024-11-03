@@ -20,7 +20,7 @@
             .counter {
                 margin: auto;
                 cursor: pointer;
-                font-size: xx-large;
+                font-size: xxx-large;
             }
         </style>
     </head>
@@ -30,6 +30,7 @@
         </div>
         <script>
             const space = '&nbsp;'
+            const lowDash = '_'
 
             counter.addEventListener('click', () => {
                 const startTime = new Date().getTime()
@@ -56,22 +57,22 @@
                 const miliseconds = diff % 1000
                 const divider = miliseconds < 500 ? space : ':'
                 const seconds = secondsLeft % 60
-                const secondsString = seconds < 10 ? space + seconds : seconds
                 const minutes = minutesLeft % 60
                 const hours = hoursLeft % 24
+                const secondsString = seconds < 10 ? lowDash + seconds : seconds
                 let minutesString = ''
                 let hoursString = ''
-
-                if (hoursLeft > 0) {
-                    hoursString = hoursLeft + divider
-                }
 
                 if (minutes > 0 && minutes < 10) {
                     minutesString = space + minutes
                 } else if (minutes > 10) {
                     minutesString = minutes
                 } else if (hoursLeft > 0) {
-                    minutesString = space + minutes
+                    minutesString = lowDash + minutes
+                }
+
+                if (hoursLeft > 0) {
+                    hoursString = hoursLeft + divider
                 }
 
                 const timeString = hoursString + minutesString + divider + secondsString
