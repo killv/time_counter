@@ -63,7 +63,7 @@
                 let minutesString = ''
                 let hoursString = ''
 
-                if (minutes > 0 && minutes < 10) {
+                if (minutes > 0 && minutes < 10 && hoursLeft < 1) {
                     minutesString = space + minutes
                 } else if (minutes > 10) {
                     minutesString = minutes
