@@ -21,22 +21,49 @@
                 margin: auto;
                 cursor: pointer;
                 font-size: xxx-large;
+                max-width: 50%;
+                text-align: center;
             }
         </style>
     </head>
     <body>
         <div class="page">
-            <div class="counter" id="counter" title="click to start">click to start</div>
+            <div class="counter"
+                id="counter"></div>
         </div>
         <script>
             const space = '&nbsp;'
             const lowDash = '_'
+            let startTime
 
-            counter.addEventListener('click', () => {
-                const startTime = new Date().getTime()
+            function init() {
+                const title = "click or press Space to start"
+
+                counter.title = title
+                counter.innerText = title
+            }
+
+            init()
+
+            counter.addEventListener('click', action)
+            
+            window.addEventListener('keypress', (event) => {
+                if (event.code === 'Space') action()
+            })
+
+            function action() {
+                console.log('action startTime:', startTime)
+                if (!startTime) {
+                    startCounter()
+                }
+            }
+
+            function startCounter() {
+                startTime = Date.now()
+                counter.title = ''
 
                 function tick() {
-                    const currentTime = new Date().getTime()
+                    const currentTime = Date.now()
                     const diff = currentTime - startTime
                     const timeString = prepareTimeString(diff)
                     
@@ -48,20 +75,20 @@
                 }
 
                 requestAnimationFrame(tick)
-            })
+            }
 
             function prepareTimeString(diff) {
                 const secondsLeft = parseInt(diff / 1000)
                 const minutesLeft = parseInt(secondsLeft / 60)
-                const hoursLeft = parseInt(minutesLeft / 60)
+                const hoursLeft   = parseInt(minutesLeft / 60)
                 const miliseconds = diff % 1000
                 const divider = miliseconds < 500 ? space : ':'
                 const seconds = secondsLeft % 60
                 const minutes = minutesLeft % 60
-                const hours = hoursLeft % 24
+                const hours   = hoursLeft % 24
                 const secondsString = seconds < 10 ? lowDash + seconds : seconds
                 let minutesString = ''
-                let hoursString = ''
+                let hoursString   = ''
 
                 if (minutes > 0 && minutes < 10 && hoursLeft < 1) {
                     minutesString = space + minutes
