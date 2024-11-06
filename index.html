@@ -32,8 +32,6 @@
                 id="counter"></div>
         </div>
         <script>
-            const space = '&nbsp;'
-            const lowDash = '_'
             let startTime
 
             function init() {
@@ -52,7 +50,6 @@
             })
 
             function action() {
-                console.log('action startTime:', startTime)
                 if (!startTime) {
                     startCounter()
                 }
@@ -78,6 +75,8 @@
             }
 
             function prepareTimeString(diff) {
+                const space   = '&nbsp;'
+                const lowDash = '_'
                 const secondsLeft = parseInt(diff / 1000)
                 const minutesLeft = parseInt(secondsLeft / 60)
                 const hoursLeft   = parseInt(minutesLeft / 60)
